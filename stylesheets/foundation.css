@@ -601,7 +601,7 @@ dl.tabs dt { color: #b3b3b3; cursor: default; display: block; float: left; font-
 dl.tabs dt:first-child { padding: 0 9px 0 0; }
 dl.tabs dd { display: block; float: left; padding: 0; margin: 0; }
 dl.tabs dd a { color: #6f6f6f; display: block; font-size: 14px; height: 40px; line-height: 40px; padding: 0px 23.8px; }
-dl.tabs dd.active { border-top: 3px solid #2ba6cb; margin-top: -3px; }
+dl.tabs dd.active { border-top: 3px solid; margin-top: -3px; }
 dl.tabs dd.active a { cursor: default; color: #3c3c3c; background: #fff; border-left: 1px solid #e6e6e6; border-right: 1px solid #e6e6e6; font-weight: bold; }
 dl.tabs dd:first-child { margin-left: 0; }
 dl.tabs.vertical { height: auto; border-bottom: 1px solid #e6e6e6; }
@@ -616,7 +616,7 @@ dl.tabs.pill dd { margin-right: 10px; }
 dl.tabs.pill dd:last-child { margin-right: 0; }
 dl.tabs.pill dd a { -webkit-border-radius: 1000px; -moz-border-radius: 1000px; -ms-border-radius: 1000px; -o-border-radius: 1000px; border-radius: 1000px; background: #e6e6e6; height: 26px; line-height: 26px; color: #666; }
 dl.tabs.pill dd.active { border: none; margin-top: 0; }
-dl.tabs.pill dd.active a { background-color: #2ba6cb; border: none; color: #fff; }
+dl.tabs.pill dd.active a {  border: none; color: #fff; }
 dl.tabs.pill.contained { border-bottom: solid 1px #eee; margin-bottom: 0; }
 dl.tabs.two-up dt a, dl.tabs.two-up dd a, dl.tabs.three-up dt a, dl.tabs.three-up dd a, dl.tabs.four-up dt a, dl.tabs.four-up dd a, dl.tabs.five-up dt a, dl.tabs.five-up dd a { padding: 0 17px; text-align: center; overflow: hidden; }
 dl.tabs.two-up dt, dl.tabs.two-up dd { width: 50%; }
@@ -639,7 +639,7 @@ ul.tabs-content.contained.vertical > li { border-width: 1px 1px 1px 1px; }
   dl.tabs.mobile dd a.active { height: auto; margin: 0; border-width: 1px 0 0; }
   .tabs.mobile { border-bottom: solid 1px #ccc; height: auto; }
   .tabs.mobile dd a { padding: 18px 20px; border: none; border-left: none; border-right: none; border-top: 1px solid #ccc; background: #fff; }
-  .tabs.mobile dd a.active { border: none; background: #2ba6cb; color: #fff; margin: 0; position: static; top: 0; height: auto; }
+  .tabs.mobile dd a.active { border: none;  color: #fff; margin: 0; position: static; top: 0; height: auto; }
   .tabs.mobile dd:first-child a.active { margin: 0; }
   dl.contained.mobile, dl.nice.contained.mobile { margin-bottom: 0; }
   dl.contained.tabs.mobile dd a { padding: 18px 20px; }
