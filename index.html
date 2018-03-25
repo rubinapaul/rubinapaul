@@ -88,122 +88,7 @@
 
 	<label for="_pac_visitor_info" class="hidden">Visitor ID</label><input type="hidden" name="_pac_visitor_info" id="_pac_visitor_info" value="" />
 
-    <script type='text/javascript'>
-        var checkOffer = function() {
-            var clickMeHelpItem = document.getElementById('_pac_clickmehelp');
-           
-        	if(clickMeHelpItem !== null){
-                document.getElementById("_pac_cancelbutton").onclick = function(){
-                    proactiveEvents.cancelClick();
-                };
-                document.getElementById("_pac_helpbutton").onclick = function(){
-                    proactiveEvents.helpClick();
-                };
-                document.getElementById("_pac_allowPrompts").onclick = function(){
-                    proactiveEvents.allowPromptsClick(document.getElementById("_pac_allowPrompts").checked);
-                };
 
-                if(document.getElementById('_pac_helpcontainer') != null){
-                    proactiveEvents.proactiveOffered();
-                };
-
-            } 
-			if("true" == 'true') {
-				var chatNowImg = $('#reactiveChatiFrame').contents().find('#elementId').find('#_pac_logo')[0];
-				if(chatNowImg !== null && typeof(chatNowImg) !== 'undefined') {
-					var paclogoscript = chatNowImg.onerror;
-	                 if (paclogoscript != null ){
-	                      paclogoscript = chatNowImg.onerror.toString();
-	                 if (paclogoscript.includes("busy")) {
-	                     reactiveEvents.busyButtonAction();
-	                 }else if (paclogoscript.includes("offline")){
-	                     reactiveEvents.offlineButtonAction();
-	                 }else if (paclogoscript.includes("chat")){
-	                     reactiveEvents.onlineButtonAction();
-	                  }
-	                 }
-				$('#reactiveChatiFrame').contents().find('#elementId').on('click', function(event) { 
-					reactiveEvents.clickButtonAction(); 
-				});
-				
-            }
-         }
-        };
-
-		addHuActions = function() {
-			setTimeout(checkOffer, 900);
-		};
-
-		if(window.addEventListener) {
-  			window.addEventListener('load', addHuActions)
-		} else {
-  			window.attachEvent('onload', addHuActions)
-		}
-
-		var dtmReactiveChatDataObj = {};
-		var reactiveEvents = {
-            onlineButtonAction: function(){
-        		/* Button updated to Online status */
-                dtmReactiveChatDataObj["dtmid"]="acq_chat_reactive";
-                dtmReactiveChatDataObj["dtmname"]="chat:reactive:online";
-                console.log('Reactive Chat Online');
-          	},
-          	busyButtonAction: function(){
-        		/* Button updated to Busy status - Agents Busy */
-                dtmReactiveChatDataObj["dtmid"]="acq_chat_reactive";
-                dtmReactiveChatDataObj["dtmname"]="chat:reactive:busy";
-                console.log('Reactive Chat Busy');
-          	},
-          	offlineButtonAction: function(){
-             	/* Button updated to Offline status - Agents Not Available */
-                dtmReactiveChatDataObj["dtmid"]="acq_chat_reactive";
-                dtmReactiveChatDataObj["dtmname"]="chat:reactive:offline";
-                console.log('Reactive Chat Offline');
-          	},
-         	clickButtonAction: function(){
-            	/* Reactive Button Clicked */
-                dtmReactiveChatDataObj["dtmid"]="acq_chat_reactive";
-                dtmReactiveChatDataObj["dtmname"]="chat:reactive:offered";
-                console.log('Reactive Chat Clicked');
-          	}
-        };
-
-		var dtmChatDataObj = {};
-		var proactiveEvents = {
-            helpClick: function () {
-                /* Add code here for Help - Yes Click */
-				dtmChatDataObj["dtmid"]="acq_chat_proactive";
-                dtmChatDataObj["dtmname"]="chat:proactive:yes";
-              	console.log('Clicked Yes - Help');
-          	},
-          	cancelClick: function () {
-              	/* Add code here for Cancel - No Click */
-				dtmChatDataObj["dtmid"]="acq_chat_proactive";
-                dtmChatDataObj["dtmname"]="chat:proactive:no";
-              	console.log('Clicked No - Cancel');
-          	},
-          	allowPromptsClick: function (checked) {
-              	/* Add code here for Checkbox */
-				dtmChatDataObj["dtmid"]="acq_chat_proactive";
-                dtmChatDataObj["dtmname"]="chat:proactive:donotshow";
-              	console.log('Clicked "Do Not Show Prompt Checkbox" - ' + checked);
-          	},
-          	proactiveOffered: function () {
-              	/* Proactive offered */
-				dtmChatDataObj["dtmid"]="acq_chat_proactive";
-                dtmChatDataObj["dtmname"]="chat:proactive:offered";
-              	console.log('Proactive Chat Offered');
-                document.getElementById('_pac_majorcontent').textContent = "Chat with a licensed sales agent now.";
-    	    	document.getElementById('_pac_allowPromptsText').textContent = "Do not show this window again.";
-          	},
-        };
-
-	</script>
-
-
-
-
-<script type="text/javascript" src="https://uhc-webrtc.tteccloud.com/assistserver/sdk/web/consumer/assist.js"></script>
 
 <style type="text/css">
 #cid-gui {
@@ -314,63 +199,6 @@ a.skip-main:focus, a.skip-main:active {
  display:none!important;
  }
 </style>
-<script type="text/javascript">
-
-    window.AssistSDK.onInSupport = function() {
-        console.log("*** AssistSDK.onInSupport() called. 1.0");
-        createEndCoBrowseButton();
-    };
-    
-    window.AssistSDK.onCobrowseInactive = function() {
-        console.log("*** AssistSDK.onCobrowseInactive() called. 1.0");
-        endCoBrowse_removeButton();
-    };
-    
-    window.AssistSDK.onError = function(error) {
-        console.log("*** AssistSDK.onError() called. 1.0 "+error);
-    };
-
-	function createEndCoBrowseButton() {
-        console.log("createEndCoBrowseButton() 1.0");
-        var cidGuiExists = document.getElementById("cid-gui");
-        if (cidGuiExists == null) {
-            console.log("creating end support button ...");
-            var cidGui = document.createElement("div");
-            cidGui.id = "cid-gui";
-
-            var endButton = document.createElement("button");
-            endButton.innerHTML = "End Assist";
-    
-            endButton.addEventListener("click", function(event) {
-                endCoBrowse_removeButton();
-            }, false);
-
-            cidGui.appendChild(endButton);
-            document.body.appendChild(cidGui);
-        }
-	}
-
-	function endCoBrowse_removeButton() {
-        console.log("endCoBrowse_removeButton() called.");
-        var cidGui = document.getElementById("cid-gui");
-        if (cidGui) {
-            cidGui.parentNode.removeChild(cidGui);
-            console.log("endCoBrowse_removeButton() - removing end support button.");
-            console.log("*** calling endSupport() called.");
-            window.AssistSDK.endSupport();
-        } else {
-            console.log("*** endCoBrowse_removeButton() - getElementById(\"cid-gui\") not found.");
-        }
-        var banner = document.getElementById("default-cobrowsing");
-        if (banner) {
-            banner.parentNode.removeChild(banner);
-            console.log("endCoBrowse_removeButton() -  removing default banner");
-        } else {
-            console.log("endCoBrowse_removeButton() - default banner not found");
-        }
-	}
-
-</script>
 
 	
 	
@@ -410,7 +238,6 @@ a.skip-main:focus, a.skip-main:active {
 
 
     <div id="site-wrapper">
-        <script type="text/javascript" src="//maps.googleapis.com/maps/api/js?key=AIzaSyC8paCZLlvoDNocHwNaNy27UlJNj3sjwNQ&sensor=false"> </script>
         <div id="overlay" style="display:none; background-color:#000 !important"></div>
         <div id="VPPprogressbar" style="display:none"></div>
         
@@ -533,59 +360,6 @@ div#alertbarid p { text-align: center !important; max-width:100% !important;}
     </div>
     </div>
   
-    <div class="top-menu">
-        <ul class="menu-links">
-            
-                <li><a href="http://www.aarp.org" dtmid="acq_top_nav" class='aarporg_lnk' dtmname="Top Nav:Visit AARP.org"><p>Visit AARP.org<span class="/content/dam/UCP/Individual/PrivacyPolicy_HealthPlan_NPPs_UHCMS-Member_2013-09.pdf" lang="en"></span></p>
-</a></li>
-            
-            
-                
-                    
-                        <li><a href="/disclaimer.html" dtmid="acq_top_nav" class='imp_disclosures_lnk' tabindex="0" dtmname="Top Nav:Important Disclosures"><p><b>Important Disclosures</b></p>
-</a> </li>
-                    
-                
-                
-            
-        </ul>
-			
-				
-	                
-                
-       	        
-            
-            
-            <div class="menu-dropdown" tabindex="0" id="visitor-6000" data-delay-type="visitor" data-delay="6000">
-              <div class="toggle" dtmid="acq_top_nav"  dtmname="Top Nav:Already a Plan Member" id="already-a-member-dropdown" aria-label="Already a Plan Member? Collapsed, Click here to expand">
-                <span aria-hidden="true">Already a Plan Member?</span>
-              </div>
-              <div class="content" id="div1">
-                <div class="member-login">
-                  <span class="sign-in-text"><p>Sign into our member site to view your information online.</p>
-</span>
-                  <form class="login-form" method="post">
-                  <div>
-                    <span class="field-error-msg inputspan" id="erorMsgContnt"><p><b>Please enter a valid username and password.</b></p>
-</span>
-                    <span class="inputspan">
-                        <label for="top-user" class="hidden">Username</label>
-                        <input type="text" id="top-user" aria-label="Username" class="field-user" name="field-top-user" placeholder="Username"/>
-                    </span>
-                    <span class="inputspan">
-                        <label for="top-pass" class="hidden">Password</label>
-                        <input type="password" id="top-pass" aria-label="Password" class="field-pass" name="field-top-pass" placeholder="Password" />
-                    </span>
-                    <button class="sign-in-button" onclick="errorReading()" type="submit" dtmid="acq_top_nav_login" dtmname="Top Nav:Already a Plan Member:Sign In">Sign in</button>
-                	</div>
-                </form>
-               <a href="#" onclick="navigateToForgotUserNamePwd()" dtmid="acq_top_nav" dtmname="Top Nav:Forgot Username or Password">Forget your username or password? <span class="open-new-window">in Already plan member section - Opens in a new window</span></a>
-                <span class="not-registered-text">Not registered? <a href="" onclick="navigateToRegisterHere()" dtmid="acq_top_nav" dtmname="Top Nav:Register Here">Register here <span class="open-new-window">in Already plan member section -  Opens in a new window</span></a></span>
-            </div>
-        </div>
-    </div>
-</div>
-  </div>
 <span class="nav-toggle" tabindex="0" aria-label="Collapsed, Press enter to expand the navigation">
     <svg class="icon icon-hamburger">
         <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-hamburger"></use>
@@ -622,7 +396,7 @@ div#alertbarid p { text-align: center !important; max-width:100% !important;}
 				    <li class="expandable">
 						<div class="link-wrapper">
 							<a itemprop="url" id="ghn_lnk_2" href="/health-plans.html" rel="#subnav_2" dtmid="acq_top_nav" dtmname="Top Nav:Our Plans">
-							    <span itemprop="name" style="color: #ffffff;">Our Plans</span>
+							    <span itemprop="name" style="color: #ffffff;">Blogs</span>
 							</a>
 						</div>
 					</li>
@@ -633,11 +407,37 @@ div#alertbarid p { text-align: center !important; max-width:100% !important;}
 				    
 				    <li class="expandable">
 						<div class="link-wrapper">
-							<a itemprop="url" id="ghn_lnk_3" href="/medicare-education.html" rel="#subnav_3" dtmid="acq_top_nav" dtmname="Top Nav:Medicare Education">
-							    <span itemprop="name" style="color: #ffffff;">Medicare Education</span>
+							<a itemprop="url" id="ghn_lnk_3" href="#" rel="#subnav_3" dtmid="acq_top_nav" dtmname="Top Nav:Medicare Education">
+							    <span itemprop="name" style="color: #ffffff;">Study</span>
 							</a>
 						</div>
 					</li>
+				
+				 <li class="expandable">
+						<div class="link-wrapper">
+							<a itemprop="url" id="ghn_lnk_3" href="#" rel="#subnav_3" dtmid="acq_top_nav" dtmname="Top Nav:Medicare Education">
+							    <span itemprop="name" style="color: #ffffff;">EveryDay Walk</span>
+							</a>
+						</div>
+					</li>
+				
+				 <li class="expandable">
+						<div class="link-wrapper">
+							<a itemprop="url" id="ghn_lnk_3" href="#" rel="#subnav_3" dtmid="acq_top_nav" dtmname="Top Nav:Medicare Education">
+							    <span itemprop="name" style="color: #ffffff;">Library</span>
+							</a>
+						</div>
+					</li>
+				
+				 <li class="expandable">
+						<div class="link-wrapper">
+							<a itemprop="url" id="ghn_lnk_3" href="#" rel="#subnav_3" dtmid="acq_top_nav" dtmname="Top Nav:Medicare Education">
+							    <span itemprop="name" style="color: #ffffff;">About Us</span>
+							</a>
+						</div>
+					</li>
+				
+				
 				
 				<li class="expandable mobile-only">
                          <div class="link-wrapper"><a itemprop="url" dtmname="Top Nav:Already a Plan Member?" dtmid="acq_top_nav_search" rel="#member-subnav" id='plan_member_lnk' href="/"><span itemprop="name">Already a Plan Member?</span></a></div>
@@ -973,16 +773,6 @@ So you can feel more confident in the plan you pick.</p>
               </div>
 </div>
 
-<script type="text/javascript">
-	$(document).ready(function(){
-		$('#zipcodebtn').click(function(){
-			setTimeout(function(){
-            	$('#zipError').attr('tabindex','0').focus();
-			}, 100);
-        });
-	});
-</script>
-
 </div>
 </div></div><div style="clear:both"></div><div class="parbase toolsbar section">
 
@@ -1096,34 +886,7 @@ So you can feel more confident in the plan you pick.</p>
             </div>
         </div>
     </div>
-</div>
-<script type="text/javascript">
-$('.closeBtnClaimsPop').keydown(function(e){
-	var code = e.keyCode ? e.keyCode : e.which;
-    if (e.shiftKey && code == 9) {
-		$(this).closest('table').find('#searchzip').focus();
-        e.preventDefault();
-    }else if (!e.shiftKey && code == 13) {
-        modelBox.popupClose('#findazip_box');
-        $('#lookzip').focus();
-        e.preventDefault();
-    }
-});
-$('#searchzip').keydown(function(e){
-	var code = e.keyCode ? e.keyCode : e.which;
-    if (!e.shiftKey && code == 9) {
-		$(this).closest('#findazip_box').find('.closeBtnClaimsPop').focus();
-		e.preventDefault();
-    }else if (!e.shiftKey && code == 13) {
-        if($("#addErr").is(':visible') || $("#cityErr").is(':visible') || $("#stateErr").is(':visible')){
-            $('#zipcode_popup_errors').attr('tabindex','0').attr('role','alert').focus();
-        }
-    }else if (e.shiftKey && code == 9) {
-		$(this).closest('table').find('#state_select').focus();
-		e.preventDefault();
-    }
-});
-</script></div>
+</div></div>
 <div class="parbase learnaboutourplans section">
 
 
@@ -1250,19 +1013,7 @@ $('#searchzip').keydown(function(e){
     </div>
     </div>
 
-
-<script type="text/javascript">
-$(document).ready(function() {    
-    var isMobile = window.matchMedia("only screen and (max-width: 760px)");
-    if (isMobile.matches) {
-         $('.container').each(function(index){
-if($(this).parent().hasClass('module-type-1')){
-$(this).css('padding-bottom','0px'); 
-        }
-         })
-    }
-});
-</script></div>
+</div>
 <div class="parbase learnfindplan section">
 
 
@@ -1311,16 +1062,6 @@ $(this).css('padding-bottom','0px');
       </div>
 </div>
 </div>
-<script type="text/javascript">
-	$(document).ready(function(){
-		$('#learnfindplanBtn').click(function(){
-			setTimeout(function(){
-            	$('#learnZipError').attr('tabindex','0').focus();
-			}, 100);
-        });
-	});
-</script>
-
 
 </div>
 <div class="parbase howdoesthiswork section">
@@ -1537,24 +1278,6 @@ You Can See</h4>
 <div class="parbase jscomponent section">
 
 
-
-     <script type="application/ld+json">
-{
-  "@context" : "http://schema.org",
-  "@type" : "Organization",
-  "url" : "https://www.aarpmedicareplans.com",
-  "logo" : " https://www.aarpmedicareplans.com/assets/images/logo-aarp-uhc.png",  
-  "contactPoint" : [{
-    "@type" : "ContactPoint",
-    "telephone" : "+1-877-699-5710",
-    "contactType" : "Customer Service"
-}]
-	}
-</script>
-
-
-
-
 </div>
 
 </div>
@@ -1709,21 +1432,7 @@ You Can See</h4>
             
         
     </ul>
-  <ul> <li> <a class="back-to-top" href="javascript:void(0);" onclick="backToTop();" dtmid="acq_footer" dtmname="Footer:Back To Top">Back to Top</a></li></ul>
-</div>
-<script type="text/javascript">
-$('.visitaarp a').keydown(function(e){
-    var code = e.keyCode ? e.keyCode : e.which;
-    if($('.learn_ole_link').length!=0){
-        if(e.shiftKey && code == 9){
-            $('.learn_ole_link').focus();
-            e.preventDefault();
-        }
-    }
-});
-</script>
-    
-
+</div.
 </div>
 <div class="parbase globalfooter section">
 
@@ -1903,14 +1612,6 @@ $('.visitaarp a').keydown(function(e){
         
     </ul>
 	
-    <div style="width:100%">
-		<span style="float:left">&copy;2018</span><span itemprop="name" style="float:left">&nbsp;United HealthCare Services, Inc.&nbsp;</span> 
-		<span style="display: inline"> All rights reserved.</span>
-		<span style="float:left"></span>
-    </div>
-    
-     <span class="updated clrspan" style="float: left; width: 100%;">Last updated: 10.01.2017 at 12:01 AM CT | Y0066_170728_124308 Approved</span>
-</div>
     
 
 
@@ -1966,29 +1667,11 @@ $('.visitaarp a').keydown(function(e){
     <div class="disclaimer-wrapper">
         <div class="disclaimer-title"><p><strong>Disclaimer and Medicare Complaint Form</strong></p></div>
         <div class="disclaimerCon"><p><strong>Medicare Advantage Plans</strong></p>
-<p>Plans are insured through UnitedHealthcare Insurance Company or one of its affiliated companies. For Medicare Advantage and Prescription Drug Plans: A Medicare Advantage organization with a Medicare contract and a Medicare-approved Part D sponsor. Enrollment in the plan depends on the plan's contract renewal with Medicare.&nbsp;</p>
-<p>This information is not a complete description of benefits. Contact the plan for more information. Limitations, copayments, and restrictions may apply.</p>
- </div>
+</div>
         <span class="hideme" id="disp_inf">Click here to expand to view all disclaimer information</span>
        <p class="floatleft"><a class="viewLink disclaimer" aria-describedby="disp_inf" aria-expanded="false" href="javascript:void(0);" onclick="showFooterDisclaimer();">View all disclaimer information <span class="hideme">View all disclaimer information</span></a></p>
         <div class="hideLink hideme">
-            <p>For Medicare Advantage-only plans: Benefits, premium and/or copayments/coinsurance may change on January 1 of each year.</p>
-<p>For Medicare Advantage plans with prescription drug coverage: Benefits, premium and/or copayments/coinsurance may change on January 1 of each year.</p>
-<p>For prescription drug plans: Premium and/or copayments/coinsurance may change on January 1 of each year</p>
-<p>The Formulary, pharmacy network, and/or provider network may change at any time. You will receive notice when necessary.</p>
-<p>You must continue to pay your Medicare Part B premium, if not otherwise paid for under Medicaid or by another third party.</p>
-<p>This information is available for free in other languages. Please <a href="/contact-us.html">contact</a> Customer Service for additional information.</p>
-<p><span title="Spanish" lang="es">Esta información está disponible sin costo en otros idiomas. Para obtener más información comuníquese <a href="/contact-us.html" title="spanish" lang="es">comuníquese</a> con nuestro Servicio al Cliente.<span></span></span></p>
-<p><span title="Chinese" lang="zh-Hans">本資訊可以其他語言免費提供。如需更多資訊，請<a href="/contact-us.html" title="chinese" lang="zh-Hans">聯絡</a>客戶服務部。</span></p>
-<p>Medicare beneficiaries may enroll in UnitedHealthcare plans through the CMS Medicare Online Enrollment Center located at <a href="https://www.medicare.gov">www.medicare.gov</a></p>
-<p>Medicare evaluates plans based on a 5-Star rating system. Star Ratings are calculated each year and may change from one year to the next.</p>
-<p>If you would like to provide feedback regarding your Medicare plan, you can contact Customer Service toll-free at 1-877-699-5710 (TTY: 711),8 a.m. – 8 p.m., local time, 7 days a week or you can provide feedback directly to Medicare through their <a href="https://www.medicare.gov/MedicareComplaintForm/home.aspx">Complaint Form</a> about your Medicare health plan or prescription drug plan.</p>
-<p>Please read the UnitedHealthcare Language Assistance/Non-Discrimination Notice:</p>
-<p>* <a adhocenable="false" href="/content/dam/UCP/Individual/Non-Discrimination_Form_AARPMP_Long.pdf" target="_blank">Language Assistance/Non-Discrimination Notice (PDF) <span class="visual-hidden">- Opens in a new window</span></a><span class="/content/dam/UCP/Individual/Non-Discrimination_Form_AARPMP_Long.pdf" lang="en"></span>([[pdf:/content/dam/UCP/Individual/Non-Discrimination_Form_AARPMP_Long.pdf]])</p>
-<p>*<a adhocenable="false" href="/content/dam/UCP/Individual/Non-Discrimination_Form_Spanish_Short.pdf" target="_blank">Asistencia de Idiomas / Aviso de no Discriminación (PDF) <span class="visual-hidden">- Opens in a new window</span></a><span class="/content/dam/UCP/Individual/Non-Discrimination_Form_Spanish_Short.pdf" lang="en"></span>([[pdf:/content/dam/UCP/Individual/Non-Discrimination_Form_Spanish_Short.pdf]])</p>
-<p>* <a adhocenable="false" href="/content/dam/UCP/Individual/Non-Discrimination_Form_Chinese_Short.pdf" target="_blank">語言協助 / 不歧視通知 (PDF) <span class="visual-hidden">- Opens in a new window</span></a><span class="/content/dam/UCP/Individual/Non-Discrimination_Form_Chinese_Short.pdf" lang="en"></span>([[pdf:/content/dam/UCP/Individual/Non-Discrimination_Form_Chinese_Short.pdf]])</p>
-
-        </div>
+         </div>
         <span class="hideme" id="hide_inf">Click here to collapse to hide disclaimer information</span>
       <p class="floatleft"><a class="disclaimer hideLink hideme" aria-describedby="hide_inf" aria-expanded="true" href="javascript:void(0);" onclick="hideFooterDisclaimer();">Hide disclaimer information <span class="hideme">Hide disclaimer information</span></a></p>
         <p class="pbacktotop"><a class="backtotop1 hideLink hideme" href="#" onclick="backToTop();">Back to Top <span class="hideme">Back to Top</span></a></p>
@@ -2003,18 +1686,7 @@ $('.visitaarp a').keydown(function(e){
 
         </div>
     </div>
-</footer>
-<script>
-    $(document).ready(function(){
-        var urlCurrent = $(location).attr('pathname');
-        if(urlCurrent == '/search') {
-            setTimeout(function(){
-                $('#hl-page-body').css('float', 'left'); 
-                $('#hl-div-threecol-body').css('margin', '0 33%');
-            }, 3000);
-        } 
-    });
-</script></div>
+</footer></div>
 <div class="section"><div class="new"></div>
 </div><div class="iparys_inherited"><div class="parsys iparsys globalFooterPar">
 </div>
@@ -2023,20 +1695,7 @@ $('.visitaarp a').keydown(function(e){
 
 
         
-        <script type="text/javascript">
-           if(document.URL.indexOf('/apps/uhcm') < 0) {
-               $(document).ready(function() {
-                    executeOnDocumentReady();
-               });
-           }
-        </script>
         
-	    <div class="servicecomponents cloudservices"><div class="cloudservice dtm">
-
-    <script type="text/javascript">
-    _satellite.pageBottom();
-    </script></div>
-
 </div>
 
     </div>
@@ -2044,9 +1703,6 @@ $('.visitaarp a').keydown(function(e){
 
 
 
-
-        	
-<script type="text/javascript">window.NREUM||(NREUM={});NREUM.info={"applicationID":"8617712","applicationTime":174,"beacon":"bam.nr-data.net","queueTime":0,"licenseKey":"b36f857625","transactionName":"MwRQMkRQXEYAUkINVwpOeDVmHl5cA0IZAlcRD1YHQlhdW05SWQlICw9XCEJCHUUTWFsFSh1OURcZYVNSBB5mBV8BT1gVRg==","agent":"","errorBeacon":"bam.nr-data.net"}</script>
 
 
 
