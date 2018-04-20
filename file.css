@@ -471,12 +471,12 @@ body.theme-uhc-mir #nav .primary-nav>li{display:block;float:left}
 body.theme-uhc-mir #nav .primary-nav>li .link-wrapper{background:#003da1;display:block;position:relative;z-index:4;border-bottom:solid 2px #122377}
 body.theme-uhc-mir #nav .primary-nav>li .link-wrapper a{display:block;line-height:48px;padding:0 20px;height:48px;text-align:center;text-decoration:none;position:relative;outline:0}
 body.theme-uhc-mir #nav .primary-nav>li .link-wrapper a:focus span{outline:2px dotted #fff}
-body.theme-uhc-mir #nav .primary-nav>li .link-wrapper a span{color:#fff;font-size:14px;font-weight:600}
+body.theme-uhc-mir #nav .primary-nav>li .link-wrapper a span{color:#fff;font-size:14px;font-weight:600; padding-right:84px;}
 @media(max-width:767px){body.theme-uhc-mir #nav .primary-nav>li .link-wrapper a span{top:50%;-ms-transform:translateY(-50%);-moz-transform:translateY(-50%);-webkit-transform:translateY(-50%);transform:translateY(-50%);display:block;position:relative;font-size:18px}
 }
 @media(max-width:979px){body.theme-uhc-mir #nav .primary-nav>li .link-wrapper a{padding:0 10px}
 }
-@media(max-width:767px){body.theme-uhc-mir #nav .primary-nav>li .link-wrapper a{padding:0 25px;text-align:left;height:60px}
+@media(max-width:767px){body.theme-uhc-mir #nav .primary-nav>li .link-wrapper a{padding:0 25px 0px 60px;text-align:left;height:60px}
 }
 @media(max-width:767px){body.theme-uhc-mir #nav .primary-nav>li .link-wrapper{border-bottom:solid 2px #122377}
 }
